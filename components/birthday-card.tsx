@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Cake,
@@ -12,6 +13,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import SwipeButton from "@/components/swipe-button";
 import { Card } from "@/components/ui/card";
 
 interface BirthdayCardProps {
@@ -78,11 +80,13 @@ export default function BirthdayCard({
   date = "July 1, 2026",
   message = "Wishing you a day filled with happiness and a year filled with joy!",
 }: BirthdayCardProps) {
+  const router = useRouter();
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [confetti, setConfetti] = useState<ConfettiPiece[]>([]);
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
   const [countdown, setCountdown] = useState<CountdownValue>(() => getCountdown());
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const countdownItems = useMemo(
     () => [
@@ -101,7 +105,7 @@ export default function BirthdayCard({
   }, []);
 
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) {
+    if (!cardRef.current || isTransitioning) {
       return;
     }
 
@@ -116,17 +120,33 @@ export default function BirthdayCard({
   };
 
   const handleMouseLeave = () => {
+    if (isTransitioning) return;
     setIsHovered(false);
     setRotation({ x: 0, y: 0 });
   };
 
   const handleCelebrate = () => {
     setConfetti(makeConfetti());
-    window.setTimeout(() => setConfetti([]), 2600);
+    
+    // Start transition after a brief moment to show confetti
+    window.setTimeout(() => {
+      setIsTransitioning(true);
+      // Wait for exit animation, then navigate
+      window.setTimeout(() => {
+        router.push("/surprise");
+      }, 800);
+    }, 1200);
   };
 
   return (
-    <main className="relative flex min-h-dvh w-full items-center justify-center overflow-hidden bg-[linear-gradient(135deg,#fff5fb_0%,#f9f6ff_52%,#f1f8ff_100%)] px-4 py-6 sm:py-8">
+    <motion.main 
+      className="relative flex min-h-dvh w-full items-center justify-center overflow-hidden bg-[linear-gradient(135deg,#fff5fb_0%,#f9f6ff_52%,#f1f8ff_100%)] px-4 py-6 sm:py-8"
+      animate={{ 
+        opacity: isTransitioning ? 0 : 1,
+        filter: isTransitioning ? "blur(10px)" : "blur(0px)" 
+      }}
+      transition={{ duration: 0.8, ease: "easeInOut" }}
+    >
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
         <motion.div
           className="absolute -left-2 top-[5px] h-[75px] w-[75px] rounded-full bg-[#f8c9e5]/72"
@@ -325,21 +345,9 @@ export default function BirthdayCard({
               {message}
             </motion.p>
 
-            <motion.div
-              className="mt-[39px] flex justify-center"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.96, duration: 0.5, ease: "easeOut" }}
-            >
-              <Button
-                aria-label="Celebrate Vaishnavi's birthday"
-                className="h-11 gap-2 bg-white px-[18px] text-[13px] text-[#8e3ef2] shadow-birthday-button hover:-translate-y-0.5 hover:bg-white/95 active:translate-y-0 active:scale-[0.98]"
-                onClick={handleCelebrate}
-              >
-                <PartyPopper className="h-[18px] w-[18px]" aria-hidden="true" />
-                Celebrate!
-              </Button>
-            </motion.div>
+            <div className="mt-[39px] flex justify-center">
+              <SwipeButton onSwipeComplete={handleCelebrate} />
+            </div>
 
             <div className="mt-auto flex items-center justify-around px-9 pt-9 text-white/66">
               {[Gift, Cake, PartyPopper].map((Icon, index) => (
@@ -361,6 +369,6 @@ export default function BirthdayCard({
           </div>
         </Card>
       </motion.section>
-    </main>
+    </motion.main>
   );
 }
