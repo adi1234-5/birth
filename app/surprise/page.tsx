@@ -222,7 +222,7 @@ void main() {
   return (
     <>
       <Head>
-        <title>Vaishnavi's 18th Birthday Celebration</title>
+        <title>Vaishnavi&apos;s 18th Birthday Celebration</title>
       </Head>
       <style dangerouslySetInnerHTML={{ __html: `
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
@@ -294,16 +294,17 @@ void main() {
         .text-display-lg { font-size: 72px; line-height: 80px; letter-spacing: -0.02em; font-weight: 700; }
         .text-display-lg-mobile { font-size: 48px; line-height: 56px; letter-spacing: -0.02em; font-weight: 700; }
         .text-headline-lg { font-size: 32px; line-height: 40px; font-weight: 600; }
+        .text-headline-lg-mobile { font-size: 24px; line-height: 32px; font-weight: 600; }
         .text-body-lg { font-size: 18px; line-height: 28px; font-weight: 400; }
         .text-label-md { font-size: 14px; line-height: 20px; letter-spacing: 0.05em; font-weight: 500; }
         .text-body-md { font-size: 16px; line-height: 24px; font-weight: 400; }
 
-        .px-margin-mobile { padding-left: 20px; padding-right: 20px; }
-        .px-margin-desktop { padding-left: 64px; padding-right: 64px; }
+        .px-margin-mobile { padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); }
+        .px-margin-desktop { padding-left: max(64px, env(safe-area-inset-left)); padding-right: max(64px, env(safe-area-inset-right)); }
       `}} />
       <AnimatePresence>
         <motion.div 
-          className="bg-deep-navy text-on-surface overflow-x-hidden selection:bg-soft-pink-glow/30 min-h-screen relative font-body-md"
+          className="bg-deep-navy text-on-surface overflow-x-hidden selection:bg-soft-pink-glow/30 min-h-dvh relative font-body-md"
           animate={{ 
             opacity: isTransitioning ? 0 : 1,
             y: isTransitioning ? -15 : 0,
@@ -376,8 +377,8 @@ void main() {
             <section className="max-w-2xl w-full text-center space-y-12 mb-32">
               <div className="scroll-reveal space-y-6">
                 <p className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface leading-relaxed italic">
-                  "Eighteen years ago, a star was born, and since then, you've lit
-                  up every life you've touched."
+                  &quot;Eighteen years ago, a star was born, and since then, you&apos;ve lit
+                  up every life you&apos;ve touched.&quot;
                 </p>
               </div>
               <div className="scroll-reveal glass-card p-8 md:p-12 rounded-[24px] space-y-6 text-on-surface-variant font-body-lg text-body-lg text-left relative overflow-hidden">

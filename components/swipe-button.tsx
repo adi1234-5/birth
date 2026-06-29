@@ -50,7 +50,7 @@ export default function SwipeButton({
   // Detect unlock transition
   useEffect(() => {
     if (wasLocked && !isLocked) {
-      setJustUnlocked(true);
+      setTimeout(() => setJustUnlocked(true), 0);
 
       // Sparkle effect on unlock
       if (trackRef.current) {
@@ -60,7 +60,7 @@ export default function SwipeButton({
       const timeout = setTimeout(() => setJustUnlocked(false), 1200);
       return () => clearTimeout(timeout);
     }
-    setWasLocked(isLocked);
+    setTimeout(() => setWasLocked(isLocked), 0);
   }, [isLocked, wasLocked]);
 
   const measureTrack = useCallback(() => {

@@ -135,15 +135,16 @@ export default function FinalBirthdayWishes() {
         .text-display-lg { font-size: 72px; line-height: 80px; letter-spacing: -0.02em; font-weight: 700; }
         .text-display-lg-mobile { font-size: 48px; line-height: 56px; letter-spacing: -0.02em; font-weight: 700; }
         .text-headline-lg { font-size: 32px; line-height: 40px; font-weight: 600; }
+        .text-headline-lg-mobile { font-size: 24px; line-height: 32px; font-weight: 600; }
         .text-body-lg { font-size: 18px; line-height: 28px; font-weight: 400; }
         .text-label-md { font-size: 14px; line-height: 20px; letter-spacing: 0.05em; font-weight: 500; }
         .text-body-md { font-size: 16px; line-height: 24px; font-weight: 400; }
 
-        .px-margin-mobile { padding-left: 20px; padding-right: 20px; }
-        .px-margin-desktop { padding-left: 64px; padding-right: 64px; }
+        .px-margin-mobile { padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); }
+        .px-margin-desktop { padding-left: max(64px, env(safe-area-inset-left)); padding-right: max(64px, env(safe-area-inset-right)); }
       `}} />
       <motion.div
-        className="bg-background text-on-surface selection:bg-ethereal-purple selection:text-white overflow-x-hidden min-h-screen relative font-body-md"
+        className="bg-background text-on-surface selection:bg-ethereal-purple selection:text-white overflow-x-hidden min-h-dvh relative font-body-md"
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
@@ -170,7 +171,7 @@ export default function FinalBirthdayWishes() {
           
           {/* Primary Message Card */}
           <section className="glass-card rounded-[2rem] p-8 md:p-12 mb-8 w-full max-w-3xl animate-fade-up stagger-2">
-            <h2 className="font-headline-lg text-headline-lg text-center mb-8 flex items-center justify-center gap-3">
+            <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-center mb-8 flex items-center justify-center gap-3">
               A Message From Me....
             </h2>
             <div className="space-y-6 font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
@@ -186,7 +187,7 @@ export default function FinalBirthdayWishes() {
                 ounce of happiness that the universe has to offer.
               </p>
               <p className="animate-fade-up stagger-5">
-                Thank you for being you. Happy 18th, Vaishnavi! Let's make this
+                Thank you for being you. Happy 18th, Vaishnavi! Let&apos;s make this
                 day unforgettable.
               </p>
             </div>
@@ -197,9 +198,9 @@ export default function FinalBirthdayWishes() {
             className="glass-card rounded-2xl p-6 md:p-8 mb-12 w-full max-w-xl text-center border-l-4 border-l-ethereal-purple animate-fade-up"
             style={{ animationDelay: "1.2s", animationFillMode: "forwards" }}
           >
-            <p className="italic font-headline-lg text-headline-lg text-primary opacity-90">
-              "The best is yet to come. Keep smiling, keep dreaming, and enjoy
-              every beautiful moment of life."
+            <p className="italic font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary opacity-90">
+              &quot;The best is yet to come. Keep smiling, keep dreaming, and enjoy
+              every beautiful moment of life.&quot;
             </p>
           </section>
           
@@ -218,7 +219,7 @@ export default function FinalBirthdayWishes() {
               </span>
               ESPECIALLY FOR VAISHNAVI
             </div>
-            <div className="font-headline-lg text-headline-lg gradient-text font-bold">
+            <div className="font-headline-lg text-headline-lg-mobile md:text-headline-lg gradient-text font-bold">
               Happy Birthday 🎂
             </div>
           </div>

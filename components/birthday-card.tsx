@@ -208,7 +208,7 @@ export default function BirthdayCard({
       <motion.section
         ref={cardRef}
         aria-label={`Birthday card for ${name}`}
-        className="relative z-10 w-full max-w-[420px] rounded-[22px]"
+        className="relative z-10 w-[min(92vw,420px)] rounded-[22px]"
         style={{ transformStyle: "preserve-3d", perspective: 1000 }}
         initial={{ opacity: 0, y: 18, scale: 0.985 }}
         animate={{
@@ -223,7 +223,7 @@ export default function BirthdayCard({
         onMouseLeave={handleMouseLeave}
         onMouseMove={handleMouseMove}
       >
-        <Card className="relative min-h-[680px] overflow-hidden border-0 bg-[#bd78f0] shadow-birthday sm:min-h-[722px]">
+        <Card className="relative min-h-[580px] overflow-hidden border-0 bg-[#bd78f0] shadow-birthday sm:min-h-[722px]">
           <div className="absolute inset-0 bg-[linear-gradient(135deg,#f56cad_0%,#c86cf4_45%,#66a9f6_100%)]" />
           <motion.div
             aria-hidden="true"
@@ -260,7 +260,7 @@ export default function BirthdayCard({
             ))}
           </div>
 
-          <div className="relative z-10 flex min-h-[680px] flex-col px-[clamp(1.5rem,6vw,1.875rem)] pb-9 pt-[45px] text-center text-white sm:min-h-[722px] sm:px-[30px] sm:pb-[42px] sm:pt-[52px]">
+          <div className="relative z-10 flex min-h-[580px] flex-col px-[clamp(1.25rem,5vw,1.875rem)] pb-7 pt-[35px] text-center text-white sm:min-h-[722px] sm:px-[30px] sm:pb-[42px] sm:pt-[52px]">
             <motion.div
               className="mx-auto flex h-[76px] w-[76px] items-center justify-center rounded-full bg-white/18 shadow-[0_10px_24px_rgba(99,57,191,0.18)] backdrop-blur-md"
               animate={{ rotate: isHovered ? [0, -8, 8, -4, 0] : 0 }}
