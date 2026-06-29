@@ -200,66 +200,23 @@ void main() {
 
   const handleCelebrate = (e: React.MouseEvent<HTMLButtonElement>) => {
     const btn = e.currentTarget;
-    const colors = ["#F472B6", "#7C3AED", "#E1E0FB", "#FFD8E7", "#0066CC"];
-    for (let i = 0; i < 100; i++) {
-      const piece = document.createElement("div");
-      piece.className = "confetti-piece";
-      piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-      piece.style.left = "50%";
-      piece.style.top = "50%";
 
-      const angle = Math.random() * Math.PI * 2;
-      const velocity = 5 + Math.random() * 10;
-      const xVel = Math.cos(angle) * velocity;
-      let yVel = Math.sin(angle) * velocity;
+    // 1. Button click effect: scale to 0.97
+    btn.style.transition = "transform 0.15s ease";
+    btn.style.transform = "scale(0.97)";
+    setTimeout(() => (btn.style.transform = "scale(1)"), 150);
 
-      document.body.appendChild(piece);
-
-      let posX = window.innerWidth / 2;
-      let posY = window.innerHeight / 2;
-      let gravity = 0.2;
-      let opacity = 1;
-
-      function update() {
-        posX += xVel;
-        posY += yVel;
-        posY += gravity;
-        gravity += 0.1;
-        opacity -= 0.01;
-
-        piece.style.left = posX + "px";
-        piece.style.top = posY + "px";
-        piece.style.opacity = opacity.toString();
-        piece.style.transform = `rotate(${posY}deg)`;
-
-        if (opacity > 0) {
-          requestAnimationFrame(update);
-        } else {
-          piece.remove();
-        }
-      }
-      requestAnimationFrame(update);
-    }
-
-    // Subtle feedback
-    btn.style.transform = "scale(0.95)";
-    setTimeout(() => (btn.style.transform = "scale(1)"), 100);
-
-    // Add a temporary glow burst
-    const burst = document.createElement("div");
-    burst.className =
-      "fixed inset-0 pointer-events-none z-30 transition-opacity duration-1000 bg-soft-pink-glow/20";
-    document.body.appendChild(burst);
+    // 2. Soft glow for 200ms
+    btn.style.boxShadow = "0 0 40px 10px rgba(244,114,182,0.35)";
     setTimeout(() => {
-      burst.style.opacity = "0";
-      setTimeout(() => burst.remove(), 1000);
-    }, 100);
+      btn.style.boxShadow = "";
+    }, 200);
 
-    // Trigger transition and navigate
+    // 3. Trigger smooth page exit and navigate
     setIsTransitioning(true);
     setTimeout(() => {
       router.push("/final");
-    }, 800);
+    }, 500);
   };
 
   return (
@@ -349,10 +306,9 @@ void main() {
           className="bg-deep-navy text-on-surface overflow-x-hidden selection:bg-soft-pink-glow/30 min-h-screen relative font-body-md"
           animate={{ 
             opacity: isTransitioning ? 0 : 1,
-            filter: isTransitioning ? "blur(10px)" : "blur(0px)",
-            scale: isTransitioning ? 1.05 : 1
+            y: isTransitioning ? -15 : 0,
           }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.45, ease: "easeInOut" }}
         >
           {/* Global Background Shader */}
           <div className="fixed inset-0 z-0">

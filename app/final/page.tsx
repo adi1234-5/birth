@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from "react";
 import Head from "next/head";
+import { motion } from "framer-motion";
 
 export default function FinalBirthdayWishes() {
   const particleContainerRef = useRef<HTMLDivElement>(null);
@@ -141,7 +142,12 @@ export default function FinalBirthdayWishes() {
         .px-margin-mobile { padding-left: 20px; padding-right: 20px; }
         .px-margin-desktop { padding-left: 64px; padding-right: 64px; }
       `}} />
-      <div className="bg-background text-on-surface selection:bg-ethereal-purple selection:text-white overflow-x-hidden min-h-screen relative font-body-md">
+      <motion.div
+        className="bg-background text-on-surface selection:bg-ethereal-purple selection:text-white overflow-x-hidden min-h-screen relative font-body-md"
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
         {/* Atmospheric Foundation */}
         <div className="fixed inset-0 z-0">
           {/* Floating Particles Layer */}
@@ -217,7 +223,7 @@ export default function FinalBirthdayWishes() {
             </div>
           </div>
         </main>
-      </div>
+      </motion.div>
     </>
   );
 }

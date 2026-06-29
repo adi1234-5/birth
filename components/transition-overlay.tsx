@@ -124,14 +124,11 @@ export default function TransitionOverlay({ active, type, onComplete }: Transiti
         onComplete?.();
       }, 1800);
     } else {
-      // celebrate-to-final: button glow → fireworks → hearts → transition
-      spawnBurst("fireworks");
-      setTimeout(() => spawnBurst("hearts"), 300);
-      setTimeout(() => spawnBurst("sparkles"), 600);
+      // celebrate-to-final: clean, simple transition — no bursts
       setTimeout(() => {
         hasCompletedRef.current = true;
         onComplete?.();
-      }, 2000);
+      }, 300);
     }
   }, [active, type, spawnBurst, onComplete]);
 

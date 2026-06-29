@@ -20,10 +20,8 @@ const pageExitVariants = {
   },
   surprise: {
     opacity: 0,
-    scale: 1.08,
-    filter: "blur(14px)",
-    y: -40,
-    transition: { duration: 1, ease: [0.16, 1, 0.3, 1] },
+    y: -15,
+    transition: { duration: 0.45, ease: "easeInOut" },
   },
   final: {
     opacity: 0,
@@ -45,9 +43,7 @@ const pageEnterVariants = {
   },
   final: {
     opacity: 0,
-    y: 80,
-    scale: 0.95,
-    filter: "blur(8px)",
+    y: 15,
   },
 };
 
@@ -75,11 +71,9 @@ const pageAnimateVariants = {
   final: {
     opacity: 1,
     y: 0,
-    scale: 1,
-    filter: "blur(0px)",
     transition: {
-      duration: 1.0,
-      ease: [0.16, 1, 0.3, 1],
+      duration: 0.5,
+      ease: "easeOut",
       staggerChildren: 0.12,
     },
   },
@@ -108,7 +102,6 @@ export default function BirthdayExperience() {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setTransitionType("celebrate-to-final");
-    setParticleIntensity(3);
 
     // Start background transition immediately
     setBackgroundPhase(2);

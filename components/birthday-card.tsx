@@ -88,6 +88,12 @@ export default function BirthdayCard({
   const [countdown, setCountdown] = useState<CountdownValue>(() => getCountdown());
   const [isTransitioning, setIsTransitioning] = useState(false);
 
+  const isCountdownComplete =
+    countdown.days === 0 &&
+    countdown.hours === 0 &&
+    countdown.minutes === 0 &&
+    countdown.seconds === 0;
+
   const countdownItems = useMemo(
     () => [
       { label: "Days", value: countdown.days },
@@ -346,7 +352,7 @@ export default function BirthdayCard({
             </motion.p>
 
             <div className="mt-[39px] flex justify-center">
-              <SwipeButton onSwipeComplete={handleCelebrate} />
+              <SwipeButton onSwipeComplete={handleCelebrate} isLocked={!isCountdownComplete} />
             </div>
 
             <div className="mt-auto flex items-center justify-around px-9 pt-9 text-white/66">
